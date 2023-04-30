@@ -22,9 +22,12 @@ openai.Model.list()
 DEEPAI_API = os.getenv('API_KEY_DEEP')#DeepAI
 
 bot = commands.Bot(command_prefix="~", intents=discord.Intents.all())
+
+
 @bot.event
 async def on_ready():
     print("online")
+
 @bot.command()
 async def ping(ctx):
     await ctx.channel.send("pong")

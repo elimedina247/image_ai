@@ -19,7 +19,8 @@ openai.organization = os.getenv('ORG_ID')#chatGPT org ID
 openai.api_key = os.getenv('API_KEY_GPT')#ChatGPT API
 openai.Model.list()
 
-DEEPAI_API = os.getenv('API_KEY_DEEP')#DeepAI
+DEEPAI_API_KEY = os.getenv('API_KEY_DEEP')#DeepAI
+
 
 bot = commands.Bot(command_prefix="~", intents=discord.Intents.all())
 
@@ -34,20 +35,6 @@ async def ping(ctx):
 @bot.command()
 async def pong(ctx):
     await ctx.channel.send("ping")
-
-
-# @bot.command()
-# async def image(ctx, *input):
-#     str = ' '.join(input)
-#     input = ''.join(input)
-#     response = openai.Image.create(
-#         prompt = input,
-#         n = 1,
-#         size = '512x512'
-#     )
-#     image_url = response['data'][0]['url']
-#     await ctx.send("Here is: " + str)
-#     await ctx.send(image_url)
 
 
 @bot.command()
@@ -101,7 +88,7 @@ async def deep(ctx, *input):
                 'text': input,
                 'grid_size': "1"
             },
-            headers={'api-key': '91066d5a-5d7d-415d-82a0-b607493081c3'}
+            headers={'api-key': DEEPAI_API_KEY}
         )
         await ctx.send("Here is: " + str)
         await ctx.send(response.json()['output_url'])
@@ -121,7 +108,7 @@ async def deep_3d(ctx, *input):
                 'text': input,
                 'grid_size': "1"
             },
-            headers={'api-key': '91066d5a-5d7d-415d-82a0-b607493081c3'}
+            headers={'api-key': DEEPAI_API_KEY}
         )
         await ctx.send("Here is 3d character: " + str)
         await ctx.send(response.json()['output_url'])
@@ -141,7 +128,7 @@ async def deep_fantasy(ctx, *input):
                 'text': input,
                 'grid_size': "1"
             },
-            headers={'api-key': '91066d5a-5d7d-415d-82a0-b607493081c3'}
+            headers={'api-key': DEEPAI_API_KEY}
 
         )
         #print(response.json())
@@ -163,7 +150,7 @@ async def deep_pixel(ctx, *input):
                 'text': input,
                 'grid_size': "1"
             },
-            headers={'api-key': '91066d5a-5d7d-415d-82a0-b607493081c3'}
+            headers={'api-key': DEEPAI_API_KEY}
         )
         await ctx.send("Here is pixel: " + str)
         await ctx.send(response.json()['output_url'])
@@ -183,7 +170,7 @@ async def deep_origami(ctx, *input):
                 'text': input,
                 'grid_size': "1"
             },
-            headers={'api-key': '91066d5a-5d7d-415d-82a0-b607493081c3'}
+            headers={'api-key': DEEPAI_API_KEY}
         )
         await ctx.send("Here is origami: " + str)
         await ctx.send(response.json()['output_url'])
@@ -205,7 +192,7 @@ async def deep_surreal(ctx, *input):
                 'text': input,
                 'grid_size': "1"
             },
-            headers={'api-key': '91066d5a-5d7d-415d-82a0-b607493081c3'}
+            headers={'api-key': DEEPAI_API_KEY}
         )
         await ctx.send("Here is surreal: " + str)
         await ctx.send(response.json()['output_url'])
@@ -227,7 +214,7 @@ async def deep_impressionism(ctx, *input):
                 'text': input,
                 'grid_size': "1"
             },
-            headers={'api-key': '91066d5a-5d7d-415d-82a0-b607493081c3'}
+            headers={'api-key': DEEPAI_API_KEY}
         )
         await ctx.send("Here is impressionism: " + str)
         await ctx.send(response.json()['output_url'])
@@ -250,7 +237,7 @@ async def deep_abstract(ctx, *input):
                 'text': input,
                 'grid_size': "1"
             },
-            headers={'api-key': '91066d5a-5d7d-415d-82a0-b607493081c3'}
+            headers={'api-key': DEEPAI_API_KEY}
         )
         await ctx.send("Here is abstract: " + str)
         await ctx.send(response.json()['output_url'])
@@ -262,18 +249,18 @@ async def deep_abstract(ctx, *input):
 
 @bot.command()
 async def commands(ctx):
-    await ctx.send("Ping\n"
-                   "Pong\n"
-                   "large_gpt: ChatGPT 1024x1024 image\n"
-                   "gpt: ChatGPT 512x512 image\n"
-                   "deep: Deep AI image\n"
-                   "deep_3d: Deep AI 3d character generator\n"
-                   "deep_fantasy: Deep AI fantasy generator\n"
-                   "deep_pixel: Deep AI pixel\n"
-                   "deep_origami: Deep AI 3d origami\n"
-                   "deep_surreal: Deep AI surreal\n"
-                   "deep_abstract: Deep AI abstract\n"
-                   "deep_impressionism: Deep AI Impressionism\n"
+    await ctx.send("~Ping\n"
+                   "~Pong\n"
+                   "~large_gpt: ChatGPT 1024x1024 image\n"
+                   "~gpt: ChatGPT 512x512 image\n"
+                   "~deep: Deep AI image\n"
+                   "~deep_3d: Deep AI 3d character generator\n"
+                   "~deep_fantasy: Deep AI fantasy generator\n"
+                   "~deep_pixel: Deep AI pixel\n"
+                   "~deep_origami: Deep AI 3d origami\n"
+                   "~deep_surreal: Deep AI surreal\n"
+                   "~deep_abstract: Deep AI abstract\n"
+                   "~deep_impressionism: Deep AI Impressionism\n"
                    )
 
 bot.run(TOKEN)

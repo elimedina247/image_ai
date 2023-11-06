@@ -52,6 +52,21 @@ async def gpt(ctx, *input):
         await ctx.send(image_url)
     except openai.error.InvalidRequestError:
         await ctx.send(str + " has been rejected by ChatGPT safety system.Try ~deep '" + str + "' command instead.")
+@bot.command()
+async def gpt_four(ctx, *input):
+    str = ' '.join(input)
+    input = ''.join(input)
+    try:
+        response = openai.Image.create(
+            prompt = input,
+            n = 4,
+            size = '512x512'
+        )
+        image_url = response['data'][0]['url']
+        await ctx.send("Here is: " + str)
+        await ctx.send(image_url)
+    except openai.error.InvalidRequestError:
+        await ctx.send(str + " has been rejected by ChatGPT safety system.Try ~deep '" + str + "' command instead.")
 
 
 @bot.command()
@@ -74,9 +89,6 @@ async def large_gpt(ctx, *input):
 
 
 
-
-
-
 @bot.command()
 async def deep(ctx, *input):
     str = ' '.join(input)
@@ -96,6 +108,25 @@ async def deep(ctx, *input):
     except discord.ext.commands.errors.CommandInvokeError:
         await ctx.send("Error idk why this API doesn't tell me shit.")
     #print(response.json())
+
+@bot.command()
+async def deep_four(ctx, *input):
+    str = ' '.join(input)
+    input = ''.join(input)
+    try:
+        response = requests.post(
+            "https://api.deepai.org/api/3d-character-generator",
+            data={
+                'text': input,
+                'grid_size': "4"
+            },
+            headers={'api-key':DEEPAI_API_KEY}
+        )
+        await ctx.send("Here is: " + str)
+        await ctx.send(response.json()['output_url'])
+    except discord.ext.commands.errors.CommandInvokeError:
+        await ctx.send("This is an error. I do not know why it is, this API tells me nothing.")
+
 
 @bot.command()
 async def deep_3d(ctx, *input):
@@ -253,7 +284,9 @@ async def commands(ctx):
                    "~Pong\n"
                    "~large_gpt: ChatGPT 1024x1024 image\n"
                    "~gpt: ChatGPT 512x512 image\n"
+                   "~gpt_four: Four ChatGPT 512x512 image\n"
                    "~deep: Deep AI image\n"
+                   "~deep_four: Deep AI grid of four images\n"
                    "~deep_3d: Deep AI 3d character generator\n"
                    "~deep_fantasy: Deep AI fantasy generator\n"
                    "~deep_pixel: Deep AI pixel\n"
